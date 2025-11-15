@@ -14,14 +14,15 @@ typedef struct _fila{
 }fila;
 
 
-void criarFila();
+fila *criarFila(int tipo);
 int estaVazia(fila fila);
 
+lugar *criarLugar(fila fila);
 
-void enfileirar(fila fila, lugar *cliente);
-void desenfilerirar(fila fila);
+void enfileirar(fila *fila, lugar *cliente);
+int desenfilerirar(fila *fila);
 
-void imprimirFila(fila fila);
-int getTamnho(fila fila);
+void imprimirFila(fila *fila);
 
-void deletarFila(fila fila);
+
+int deletarFila(fila *fila);
