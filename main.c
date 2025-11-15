@@ -1,6 +1,10 @@
 #include <stdio.h>
+#include "fila.h"
 
 int main(){
+    
+    fila *filaRapida = criarFila(1);
+    fila *filaNormal = criarFila(2);
     int escolha;
     char escolhaFim;
     int veri=1;
@@ -25,8 +29,10 @@ int main(){
             case 3:
                 break;
             case 4:
+                imprimirFila(filaRapida);
                 break;
             case 5:
+                imprimirFila(filaNormal);
                 break;
             case 6:
                 while(veri){
@@ -46,5 +52,7 @@ int main(){
         }
 
     }
+    deletarFila(filaNormal);
+    deletarFila(filaRapida);
     return 0;
 }

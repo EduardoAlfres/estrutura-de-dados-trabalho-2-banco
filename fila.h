@@ -2,7 +2,7 @@
 
 //estrutura das filas de atendimento, tipo  1 = rapida tipo 2 = normal 
 typedef struct _lugar{
-    clientes cliente;
+    clientes *cliente;
     struct _lugar *pro;
 }lugar;
 
@@ -15,7 +15,7 @@ typedef struct _fila{
 
 
 fila *criarFila(int tipo);
-int estaVazia(fila fila);
+int estaVazia(fila *f);
 
 lugar *criarLugar(fila fila);
 

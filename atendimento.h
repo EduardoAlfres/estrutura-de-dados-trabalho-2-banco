@@ -3,9 +3,11 @@
 
 //arquivo centraliador das operacoes e calculos, todos eles devem ser feitos aqui
 
-fila *escolherFila(fila fila1, fila fila2, clientes cliente);
+fila *escolherFila(fila *fila1, fila *fila2, clientes *cliente);
 
-void RealziarOperação(fila fila);
+int sairFila(fila *fila);
+
+void RealziarOperação(fila *fila);
 
 int calcularTempo();
 

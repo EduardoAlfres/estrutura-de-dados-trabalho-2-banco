@@ -11,12 +11,12 @@ fila *criarFila(int tipo){
     return filaL;
 }
 
-estaVazia(fila *fila){
-    if(fila->tamanho == 0) return 1;
+int estaVazia(fila *f){
+    if(f->tamanho == 0) return 1;
     else return 0;
 }
 
-lugar *criarLugar(clientes cliente){
+lugar *criarLugar(clientes *cliente){
     lugar *li = (lugar*) malloc(sizeof(lugar));
     li->cliente = cliente;
     return li;
@@ -61,16 +61,23 @@ void imprimirFila(fila *fila){
     printf("%d elementos sendo eles:\n", fila->tamanho);
     for(i = 1; i <= fila->tamanho; i++){
         printf("----------------------------\n");
-        printf("Nome: %s\n", temp->cliente.nome);
-        printf("Numero: %d", temp->cliente.num);
-        printf("Processos: %d", temp->cliente.processos);
+        printf("Nome: %s\n", temp->cliente->nome);
+        printf("Numero: %d", temp->cliente->nome);
+        printf("Processos: %d", temp->cliente->processos);
         printf("----------------------------\n");
         temp = temp->pro;
     }
 }
 
 int deletarFila(fila *fila){
-    if(!estaVazia) return 0;
+    if(!estaVazia){
+        int i;
+        for(fila->tamanho; fila->tamanho != 0; fila->tamanho--){
+            desenfilerirar(fila);
+        }
+        free(fila);
+        return 1;
+    };
     free(fila);
     return 1; 
 }

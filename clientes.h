@@ -8,3 +8,5 @@ typedef struct _clientes{
 }clientes;
 
 clientes *criarElemento(char nome[50], int numero, int processos);
+
+int deletarCliente(clientes *cliente);
