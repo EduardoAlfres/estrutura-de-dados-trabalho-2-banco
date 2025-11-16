@@ -1,5 +1,6 @@
 #include "fila.h"
 #include "clientes.h"
+#include "historico.h"
 
 //arquivo centraliador das operacoes e calculos, todos eles devem ser feitos aqui
 

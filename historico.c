@@ -39,6 +39,23 @@ int pop(historico *pilha){
     hisNode *temp = pilha->topo->prox;
     free(pilha->topo);
     pilha->topo = temp;
-    //incompleta
+    pilha->tamanho--;
+    return 1;
 }
+
+void imprimirHistorico(historico *pilha){
+    int i;
+    hisNode *temp = pilha->topo;
+    printf("------------Relatorio--------------\n");
+    for(i = 1; i <= pilha->tamanho; i++){
+        printf("----------------------------\n");
+        printf("Nome: %s\n", temp->cliente->nome);
+        printf("Numero: %d\n", temp->cliente->nome);
+        printf("Processos: %d\n", temp->cliente->processos);
+        printf("Tempo: %ds\n", temp->cliente->tempo);
+        printf("----------------------------\n");
+        temp = temp->prox;
+    }
+}
+
 

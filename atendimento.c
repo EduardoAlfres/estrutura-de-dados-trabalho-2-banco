@@ -28,3 +28,4 @@ void RealziarOperação(fila *fila){
         sairFila(fila);
     }
 }
+

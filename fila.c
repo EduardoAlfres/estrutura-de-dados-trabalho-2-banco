@@ -62,8 +62,8 @@ void imprimirFila(fila *fila){
     for(i = 1; i <= fila->tamanho; i++){
         printf("----------------------------\n");
         printf("Nome: %s\n", temp->cliente->nome);
-        printf("Numero: %d", temp->cliente->nome);
-        printf("Processos: %d", temp->cliente->processos);
+        printf("Numero: %d\n", temp->cliente->nome);
+        printf("Processos: %d\n", temp->cliente->processos);
         printf("----------------------------\n");
         temp = temp->pro;
     }
