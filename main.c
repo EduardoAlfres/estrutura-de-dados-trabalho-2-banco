@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "fila.h"
 #include "clientes.h"
 #include "historico.h"
@@ -22,7 +23,7 @@ int main(){
     int processos;
 
     while(veri){
-        printf("------------Controlador de atendimento------------\n");
+        printf("\n------------Controlador de atendimento------------\n");
         printf("Digite o numero correspondente para escolher uma operacao:\n");
         printf("1.Cadastrar cliente\n");
         printf("2.Realizar operacao no caixa rapido\n");
@@ -37,6 +38,7 @@ int main(){
                 //input de cadastro
                 printf("Qual eh o nome do cliente?\n");
                 fgets(nome, sizeof(nome), stdin);
+                nome[strcspn(nome, "\n")] = 0; // Remove o caractere de nova linha lido pelo fgets
                 printf("Qual eh o numero do cliente?\n");
                 scanf("%d", &num);
                 while ((c = getchar()) != '\n' && c != EOF) {}
@@ -55,6 +57,11 @@ int main(){
                 break;
 
             case 2: //Realizar operacao no caixa rapido
+                if(estaVazia(filaRapida)) {
+                    printf("O Caixa Rapido esta vazio. Cadastre um cliente primeiro.\n");
+                    break;
+                }
+
                 printf("Quantas operacoes deseja realizar?\n");
                 scanf("%d", &opNum);
                 while ((c = getchar()) != '\n' && c != EOF) {}
@@ -69,6 +76,11 @@ int main(){
                 break;
 
             case 3: //Realizar operacao no caixa normal
+                if(estaVazia(filaNormal)) {
+                    printf("O Caixa Normal esta vazio. Cadastre um cliente primeiro.\n");
+                    break;
+                }
+
                 printf("Quantas operacoes deseja realizar?\n");
                 scanf("%d", &opNum);
                 while ((c = getchar()) != '\n' && c != EOF) {}

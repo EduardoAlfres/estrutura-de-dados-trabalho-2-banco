@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "atendimento.h"
 
 // Funções de atendimento e escolha de fila
@@ -35,9 +36,17 @@ int sairFila(fila *fila, historico *hist) { // Deve adicionar o cliente ao histo
 
 // Função que realiza a operação de atendimento ao cliente
 void RealziarOperacao(fila *fila, historico *hist) {; // Realiza o atendimento do cliente no inicio da fila
-    if(fila->comeco->cliente->processos > 0){ // Verifica se o cliente ainda tem processos pendentes
-        fila->comeco->cliente->processos--; // Decrementa o número de processos do cliente
-    } else {
+    if(estaVazia(fila)) {
+        return; // Se a fila estiver vazia, não há nada a fazer
+    }
+
+    clientes *clienteAtual = fila->comeco->cliente; // Pega o cliente no inicio da fila
+    if(clienteAtual->processos > 0){ // Verifica se o cliente ainda tem processos pendentes
+        clienteAtual->processos--; // Decrementa o número de processos do cliente
+        printf("Operacao realizada para o(a) cliente %s. Processos restantes: %d\n", clienteAtual->nome, clienteAtual->processos); // Imprime o status do atendimento
+    }
+    if(clienteAtual->processos == 0){ // Se o cliente não tiver mais processos, ele sai da fila
         sairFila(fila, hist); // Remove o cliente da fila e adiciona ao historico
+        printf("Cliente %s finalizou todos os processos e saiu da fila.\n", clienteAtual->nome); // Imprime que o cliente saiu da fila
     }
 }

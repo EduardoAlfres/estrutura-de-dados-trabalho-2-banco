@@ -4,7 +4,7 @@
 
 // Funções de historico
 // Função que cria uma nova pilha de historico
-historico *criarPilha(){
+historico *criarPilha() {
     historico *newHistorico = (historico*) malloc(sizeof(historico));
     newHistorico->tamanho = 0;
     newHistorico->topo = NULL;
@@ -12,13 +12,13 @@ historico *criarPilha(){
 }
 
 // Função que verifica se a pilha de historico está vazia
-int pilhaEstaVazia(historico *pilha){
+int pilhaEstaVazia(historico *pilha) {
     if(pilha->tamanho == 0) return 1; // Retorna 1 se a pilha estiver vazia
     else return 0; // Retorna 0 se a pilha não estiver vazia
 }
 
 // Função que cria um novo nó de historico
-hisNode *criarNode(clientes *cliente, int tipo){
+hisNode *criarNode(clientes *cliente, int tipo) {
     hisNode *newNode = (hisNode*) malloc(sizeof(hisNode));
     newNode->cliente = cliente;
     newNode->tipoCaixa = tipo;
@@ -27,7 +27,7 @@ hisNode *criarNode(clientes *cliente, int tipo){
 }
 
 // Função que adiciona um nó na pilha de historico
-int push(historico *pilha, hisNode *hist){
+int push(historico *pilha, hisNode *hist) {
     if(!pilhaEstaVazia(pilha)){
         hist->prox = pilha->topo;
         pilha->topo = hist;
@@ -41,7 +41,7 @@ int push(historico *pilha, hisNode *hist){
 }
 
 // Função que remove o nó do topo da pilha de historico
-int pop(historico *pilha){
+int pop(historico *pilha) {
     if(pilhaEstaVazia(pilha)) return 0;
     hisNode *temp = pilha->topo->prox;
     free(pilha->topo);
@@ -51,11 +51,16 @@ int pop(historico *pilha){
 }
 
 // Função que imprime o historico de atendimento
-void imprimirHistorico(historico *pilha){
-    int i;
-    hisNode *temp = pilha->topo;
-    printf("------------Relatorio--------------\n");
-    for(i = 1; i <= pilha->tamanho; i++){
+void imprimirHistorico(historico *pilha) {
+    hisNode *temp = pilha->topo; // Ponteiro temporário para percorrer a pilha
+
+    if(pilhaEstaVazia(pilha)){
+        printf("Historico vazio!\n");
+        return;
+    }
+
+    printf("\n------------Relatorio--------------\n");
+    while(temp != NULL) {
         printf("----------------------------\n");
         printf("Nome: %s\n", temp->cliente->nome);
         printf("Numero: %d\n", temp->cliente->num);
