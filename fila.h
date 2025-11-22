@@ -22,7 +22,7 @@ int estaVazia(fila *f);
 lugar *criarLugar(clientes *cliente);
 
 void enfileirar(fila *fila, lugar *cliente);
-int desenfilerirar(fila *fila);
+clientes *desenfilerirar(fila *fila);
 
 void imprimirFila(fila *fila);
 int deletarFila(fila *fila);

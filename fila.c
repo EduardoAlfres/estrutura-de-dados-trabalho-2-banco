@@ -43,20 +43,20 @@ void enfileirar(fila *fila, lugar *cliente){
 }
 
 // Função que remove o cliente do inicio da fila
-int desenfilerirar(fila *fila){
-    if(estaVazia(fila)) return 0;
-    lugar *temp = fila->comeco->pro;
-    if(temp){
-        free(fila->comeco);
-        fila->comeco = temp;
-        fila->tamanho--;
-    }else{
-        free(fila->comeco);
-        fila->tamanho--;
-        fila->comeco = NULL;
-        fila->fim = NULL;
+clientes *desenfilerirar(fila *fila){
+    if(estaVazia(fila)) return 0; // Verifica se a fila está vazia
+    clientes *clienteRemovido = fila->comeco->cliente; // Armazena o cliente que será removido
+    lugar *lugarRemovido = fila->comeco; // Armazena o lugar que será removido
+    fila->comeco = fila->comeco->pro; // Atualiza o início da fila para o próximo lugar
+
+    free(lugarRemovido); // Libera a memória do lugar removido
+    fila->tamanho--; // Decrementa o tamanho da fila
+    if(fila->tamanho == 0) {
+        fila->comeco = NULL; // Se a fila ficar vazia, atualiza o começo para NULL
+        fila->fim = NULL; // Se a fila ficar vazia, atualiza o fim para NULL
     }
-    return 1;
+
+    return clienteRemovido; // Retorna o cliente removido
 }
 
 // Função que imprime os clientes na fila

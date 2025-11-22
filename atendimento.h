@@ -9,8 +9,8 @@
 
 // Prototipos das funcoes de atendimento e escolha de fila
 fila *escolherFila(fila *fila1, fila *fila2, clientes *cliente);
-int sairFila(fila *fila);
-void RealziarOperacao(fila *fila);
+int sairFila(fila *fila, historico *hist);
+void RealziarOperacao(fila *fila, historico *hist);
 int calcularTempo();
 
 #endif

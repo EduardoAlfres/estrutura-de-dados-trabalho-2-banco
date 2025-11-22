@@ -58,7 +58,7 @@ void imprimirHistorico(historico *pilha){
     for(i = 1; i <= pilha->tamanho; i++){
         printf("----------------------------\n");
         printf("Nome: %s\n", temp->cliente->nome);
-        printf("Numero: %d\n", temp->cliente->nome);
+        printf("Numero: %d\n", temp->cliente->num);
         printf("Processos: %d\n", temp->cliente->processos);
         printf("Tempo: %ds\n", temp->cliente->tempo);
         printf("----------------------------\n");

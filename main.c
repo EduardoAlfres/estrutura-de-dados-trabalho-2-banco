@@ -8,8 +8,8 @@ int main(){
     int c;
     fila *filaRapida = criarFila(1);
     fila *filaNormal = criarFila(2);
-    historico *hist1 = criarPilha();
-    historico *hist2 = criarPilha();
+    historico *histRapida = criarPilha();
+    historico *histNormal = criarPilha();
     int escolha;
     char escolhaSN;
     int escolhaFim;
@@ -63,7 +63,7 @@ int main(){
                     break;
                 }
                 while(opNum != 0){
-                    RealziarOperacao(filaRapida);
+                    RealziarOperacao(filaRapida, histRapida);
                     opNum--;
                 }
                 break;
@@ -77,7 +77,7 @@ int main(){
                     break;
                 }
                 while(opNum != 0){
-                    RealziarOperacao(filaNormal);
+                    RealziarOperacao(filaNormal, histNormal);
                     opNum--;
                 }
                 break;
@@ -100,10 +100,10 @@ int main(){
                         scanf("%d", &escolhaFim);
                         while ((c = getchar()) != '\n' && c != EOF) {}
                         if(escolhaFim == 1){
-                            imprimirHistorico(hist1);
+                            imprimirHistorico(histRapida);
                             veri = 0;
                         }else if(escolhaFim == 2){
-                            imprimirHistorico(hist2);
+                            imprimirHistorico(histNormal);
                             veri = 0;
                         }else{
                             printf("Valor invalido, digite novamente!\n");
