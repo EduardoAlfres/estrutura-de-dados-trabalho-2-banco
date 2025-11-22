@@ -16,6 +16,10 @@ int main(){
     int veri=1;
     int opNum;
 
+    //variaveis de cliente
+    char nome[50];
+    int num;
+    int processos;
 
     while(veri){
         printf("------------Controlador de atendimento------------\n");
@@ -29,20 +33,16 @@ int main(){
         scanf("%d", &escolha);
         while ((c = getchar()) != '\n' && c != EOF) {} //limpa o buffer de input
         switch(escolha){
-            case 1:
-                char nome[50];
-                int num;
-                int processos;
+            case 1: //Cadastrar cliente
                 //input de cadastro
-                printf("Qual é o nome do cliente?\n");
+                printf("Qual eh o nome do cliente?\n");
                 fgets(nome, sizeof(nome), stdin);
-                printf("Qual é o numero do cliente?\n");
+                printf("Qual eh o numero do cliente?\n");
                 scanf("%d", &num);
                 while ((c = getchar()) != '\n' && c != EOF) {}
-                printf("Qual é o numero de processos do cliente?\n");
+                printf("Qual eh o numero de processos do cliente?\n");
                 scanf("%d", &processos);
                 while ((c = getchar()) != '\n' && c != EOF) {}
-
 
                 clientes *cliente = criarElemento(nome, num, processos);//cria um cliente novo 
                 fila *temp = escolherFila(filaRapida, filaNormal, cliente);//escolhe e adiciona na fila correspondente
@@ -52,42 +52,45 @@ int main(){
                 }else{
                     printf("Fila escolhida: Normal\n");
                 }
-
                 break;
 
-            case 2: 
-                printf("Quantas operações deseja realizar?\n");
+            case 2: //Realizar operacao no caixa rapido
+                printf("Quantas operacoes deseja realizar?\n");
                 scanf("%d", &opNum);
                 while ((c = getchar()) != '\n' && c != EOF) {}
                 if(opNum < 0){
-                    printf("Valor inválido!\n");
+                    printf("Valor invalido!\n");
                     break;
                 }
                 while(opNum != 0){
-                    RealziarOperação(filaRapida);
+                    RealziarOperacao(filaRapida);
                     opNum--;
                 }
                 break;
-            case 3:
-                printf("Quantas operações deseja realizar?\n");
+
+            case 3: //Realizar operacao no caixa normal
+                printf("Quantas operacoes deseja realizar?\n");
                 scanf("%d", &opNum);
                 while ((c = getchar()) != '\n' && c != EOF) {}
                 if(opNum < 0){
-                    printf("Valor inválido!\n");
+                    printf("Valor invalido!\n");
                     break;
                 }
                 while(opNum != 0){
-                    RealziarOperação(filaNormal);
+                    RealziarOperacao(filaNormal);
                     opNum--;
                 }
                 break;
-            case 4:
+                
+            case 4: //Imprimir a fila do caixa rapido
                 imprimirFila(filaRapida);
                 break;
-            case 5:
+
+            case 5: //Imprimir a fila do caixa normal
                 imprimirFila(filaNormal);
                 break;
-            case 6:
+
+            case 6: //Finalizar dia
                 while(veri){
                     printf("Deseja exibir o relatorio do dia? (s/n): \n");
                     scanf("%c", &escolhaSN);
@@ -103,16 +106,16 @@ int main(){
                             imprimirHistorico(hist2);
                             veri = 0;
                         }else{
-                            printf("Valor inválido, digite novamente!\n");
+                            printf("Valor invalido, digite novamente!\n");
                         }
                     }else if(escolhaSN == 'n' ){
                         veri = 0;
                     }else{
-                        printf("Valor inválido, digite novamente!\n");
+                        printf("Valor invalido, digite novamente!\n");
                     }
                 }
             default:
-                printf("Valor Inválido digite novamente!\n");
+                printf("Valor Invalido digite novamente!\n");
         }
 
     }
