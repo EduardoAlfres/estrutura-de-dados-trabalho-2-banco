@@ -7,7 +7,7 @@
 // Função que escolhe a fila baseada na quantidade de processos do cliente
 fila *escolherFila(fila *fila1, fila *fila2, clientes *cliente){
     fila *ret;
-    if (cliente->processos > 2) { // Clientes com mais de 2 processos vao para a fila normal, os outros para a rapida
+    if (cliente->processos >= 2) { // Clientes com mais de 2 processos vao para a fila normal, os outros para a rapida
         // Antes de enfileirar, criar o lugar para o cliente
         lugar *lugarCliente = criarLugar(cliente); // Adicionar na fila normal
         enfileirar(fila2, lugarCliente); // Adicionar na fila normal

@@ -125,7 +125,7 @@ int imprimirHistoricoGeral(historico *rapido, historico *normal, historico *gera
     }
     float tempoMedioGeral = (tempoMedioRapido * rapido->tamanho + tempoMedioNormal * normal->tamanho) / totalAtendidos; // Tempo médio geral ponderado
 
-    printf("\n============Relatorio Geral de Atendimento============\n");
+    printf("\n=============Relatorio Geral de Atendimento=============\n");
     printf("Total de pessoas atendidas: %d\n", totalAtendidos);
     printf("--------------------------------------------------------\n");
     printf("Estatisticas por tipo de caixa:\n");
