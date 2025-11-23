@@ -36,6 +36,11 @@ int main(){
     clientes *cliB = criarElemento("Guilherme", 102, 5);
     escolherFila(filaRapida, filaNormal, cliB);
     printf("Cliente %s cadastrado na fila Normal.\n", cliB->nome);
+
+    // Cliente 3: Rápido (1 processo)
+    clientes *cliC = criarElemento("Eduardo", 103, 1);
+    escolherFila(filaRapida, filaNormal, cliC);
+    printf("Cliente %s cadastrado na fila Rapida.\n", cliC->nome);
     
     printf("-----------------------------------\n");
     // ==============================================
@@ -44,11 +49,10 @@ int main(){
         printf("\n------------Controlador de atendimento------------\n");
         printf("Digite o numero correspondente para escolher uma operacao:\n");
         printf("1.Cadastrar cliente\n");
-        printf("2.Realizar operacao no caixa rapido\n");
-        printf("3.Realiazr operacao no caixa normal\n");
-        printf("4.Imprimir a fila do caixa rapido\n");
-        printf("5.Imprimir a fila do caixa normal\n");
-        printf("6.Finalizar dia.\n");
+        printf("2.Realizar operacao (Alternando entre Caixas)\n");
+        printf("3.Imprimir a fila do caixa rapido\n");
+        printf("4.Imprimir a fila do caixa normal\n");
+        printf("5.Finalizar dia.\n");
         scanf("%d", &escolha);
         while ((c = getchar()) != '\n' && c != EOF) {} //limpa o buffer de input
         switch(escolha){
@@ -74,53 +78,35 @@ int main(){
                 }
                 break;
 
-            case 2: //Realizar operacao no caixa rapido
-                if(estaVazia(filaRapida)) {
-                    printf("O Caixa Rapido esta vazio. Cadastre um cliente primeiro.\n");
-                    break;
-                }
-
+            case 2: //Realizar operacao (Alternando entre Caixas)
                 printf("Quantas operacoes deseja realizar?\n");
                 scanf("%d", &opNum);
                 while ((c = getchar()) != '\n' && c != EOF) {}
-                if(opNum < 0){
+
+                if(opNum <= 0){
                     printf("Valor invalido!\n");
                     break;
                 }
-                while(opNum != 0){
-                    RealziarOperacao(filaRapida, histRapida);
+
+                printf("Iniciando atendimento alternado... Realizando %d operacoes...\n", opNum);
+                while(opNum != 0) {
+
+                    if(cicloAtendimento(filaRapida, filaNormal, histRapida, histNormal) == 0) {
+                        break; // Sai do loop se não houver mais atendimentos possíveis
+                    }
                     opNum--;
                 }
                 break;
 
-            case 3: //Realizar operacao no caixa normal
-                if(estaVazia(filaNormal)) {
-                    printf("O Caixa Normal esta vazio. Cadastre um cliente primeiro.\n");
-                    break;
-                }
-
-                printf("Quantas operacoes deseja realizar?\n");
-                scanf("%d", &opNum);
-                while ((c = getchar()) != '\n' && c != EOF) {}
-                if(opNum < 0){
-                    printf("Valor invalido!\n");
-                    break;
-                }
-                while(opNum != 0){
-                    RealziarOperacao(filaNormal, histNormal);
-                    opNum--;
-                }
-                break;
-                
-            case 4: //Imprimir a fila do caixa rapido
+            case 3: //Imprimir a fila do caixa rapido
                 imprimirFila(filaRapida);
                 break;
 
-            case 5: //Imprimir a fila do caixa normal
+            case 4: //Imprimir a fila do caixa normal
                 imprimirFila(filaNormal);
                 break;
 
-            case 6: //Finalizar dia
+            case 5: //Finalizar dia
                 while(1) {
                     int impresso = 0;
                     printf("Deseja exibir o relatorio do dia? (s/n):\n");
@@ -144,22 +130,27 @@ int main(){
                             printf("Valor invalido, digite novamente!\n");
                             continue; // Volta para o início do loop para nova entrada
                         }
+
                         if (impresso) {
                             printf("\nRelatorio exibido. Deseja encerrar o sistema? (s/n):\n");
-                            scanf(" %c", &escolhaSN);
-                            while ((c = getchar()) != '\n' && c != EOF) {}
-
-                            if(escolhaSN == 's' || escolhaSN == 'S'){
-                                veri = 0; // Se confirmar, encerra o loop principal
-                                break;
-                            }
-                            if (escolhaSN == 'n' || escolhaSN == 'N'){
-                                break; // Sai do while(1) interno e volta ao menu principal
-                            }else{
-                                printf("Valor invalido, digite novamente!\n");
-                                continue; // Volta para o início do loop para nova entrada
-                            }
+                        } else {
+                            printf("Deseja encerrar o sistema? (s/n):\n");
                         }
+
+                        scanf(" %c", &escolhaSN);
+                        while ((c = getchar()) != '\n' && c != EOF) {}
+
+                        if(escolhaSN == 's' || escolhaSN == 'S'){
+                            veri = 0; // Se confirmar, encerra o loop principal
+                            break;
+                        }
+                        if (escolhaSN == 'n' || escolhaSN == 'N'){
+                            break; // Sai do while(1) interno e volta ao menu principal
+                        }else{
+                            printf("Valor invalido, digite novamente!\n");
+                            continue; // Volta para o início do loop para nova entrada
+                        }
+                        
                     }else if(escolhaSN == 'n' || escolhaSN == 'N') {
                         printf("Deseja encerrar o sistema? (s/n):\n");
                         scanf(" %c", &escolhaSN);

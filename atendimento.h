@@ -11,6 +11,7 @@
 fila *escolherFila(fila *fila1, fila *fila2, clientes *cliente);
 int sairFila(fila *fila, historico *hist);
 void RealziarOperacao(fila *fila, historico *hist);
+int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *histN);
 int calcularTempo();
 
 #endif
