@@ -9,6 +9,7 @@ clientes *criarElemento(char nome[50], int numero, int processos){
     strcpy(newCliente->nome, nome);
     newCliente->num = numero;
     newCliente->processos = processos;
+    newCliente->totalProcessos = processos;
 
     return newCliente; // Retorna o ponteiro para o novo cliente criado
 }

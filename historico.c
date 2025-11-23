@@ -72,7 +72,7 @@ int imprimirHistorico(historico *pilha) {
         } else {
             printf("Nome: %s\n", temp->cliente->nome);
             printf("Numero: %d\n", temp->cliente->num);
-            printf("Processos: %d\n", temp->cliente->processos);
+            printf("Total de processos: %d\n", temp->cliente->totalProcessos);
             printf("Tempo: %ds\n", temp->cliente->tempo);
         }
         printf("----------------------------\n");

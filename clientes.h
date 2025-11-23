@@ -5,7 +5,8 @@
 typedef struct _clientes{
     char nome[50];
     int num;
-    int processos;
+    int processos; // Processos restantes (Para atendimento)
+    int totalProcessos; // Processos iniciais (Para historico)
     int tempo;
 }clientes;
 

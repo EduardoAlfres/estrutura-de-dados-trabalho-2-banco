@@ -28,12 +28,12 @@ int main(){
     printf("\n--- Clientes de Teste Inseridos ---\n");
     
     // Cliente 1: Rápido (1 processo)
-    clientes *cliA = criarElemento("Alice", 101, 1);
+    clientes *cliA = criarElemento("Helcio", 101, 1);
     escolherFila(filaRapida, filaNormal, cliA);
     printf("Cliente %s cadastrado na fila Rapida.\n", cliA->nome);
     
     // Cliente 2: Normal (5 processos)
-    clientes *cliB = criarElemento("Bob", 102, 5);
+    clientes *cliB = criarElemento("Guilherme", 102, 5);
     escolherFila(filaRapida, filaNormal, cliB);
     printf("Cliente %s cadastrado na fila Normal.\n", cliB->nome);
     
