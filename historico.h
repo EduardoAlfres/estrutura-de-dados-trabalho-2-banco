@@ -25,5 +25,6 @@ int push(historico *pilha, hisNode *hist);
 int pop(historico *pilha);
 
 int imprimirHistorico(historico *pilha);
+float calcularTempoMedio(historico *pilha); // Calcula o tempo medio de atendimento
 
 #endif

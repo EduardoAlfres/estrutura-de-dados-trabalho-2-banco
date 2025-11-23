@@ -10,6 +10,7 @@ clientes *criarElemento(char nome[50], int numero, int processos){
     newCliente->num = numero;
     newCliente->processos = processos;
     newCliente->totalProcessos = processos;
+    newCliente->tempo = 0;
 
     return newCliente; // Retorna o ponteiro para o novo cliente criado
 }

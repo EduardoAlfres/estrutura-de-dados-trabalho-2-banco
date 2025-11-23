@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 #include "fila.h"
 #include "clientes.h"
 #include "historico.h"
@@ -7,6 +9,7 @@
 
 int main(){
     int c;
+    srand(time(NULL));
     fila *filaRapida = criarFila(1);
     fila *filaNormal = criarFila(2);
     historico *histRapida = criarPilha();

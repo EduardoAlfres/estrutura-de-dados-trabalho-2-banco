@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "atendimento.h"
 
 // Funções de atendimento e escolha de fila
@@ -26,7 +27,6 @@ int sairFila(fila *fila, historico *hist) { // Deve adicionar o cliente ao histo
 
     clientes *clienteAtendido = desenfilerirar(fila); // Remove o cliente da fila e armazena o ponteiro para ele
     if (clienteAtendido) {
-        clienteAtendido->tempo = 10; // teste fixo de tempo de atendimento
         hisNode *registro = criarNode(clienteAtendido, fila->tipo); // Cria um novo nó de historico com o cliente atendido e o tipo da fila
         push(hist, registro); // Adiciona o nó de historico na pilha de historico
         return 1; // Retorna 1 para indicar sucesso na remoção
@@ -42,11 +42,13 @@ void RealziarOperacao(fila *fila, historico *hist) {; // Realiza o atendimento d
 
     clientes *clienteAtual = fila->comeco->cliente; // Pega o cliente no inicio da fila
     if (clienteAtual->processos > 0) { // Verifica se o cliente ainda tem processos pendentes
+        int tempoGasto = calcularTempo(); // Calcula o tempo gasto no atendimento
+        clienteAtual->tempo += tempoGasto; // Adiciona o tempo gasto ao tempo total do cliente
         clienteAtual->processos--; // Decrementa o número de processos do cliente
-        printf("Operacao realizada para o(a) cliente %s. Processos restantes: %d\n", clienteAtual->nome, clienteAtual->processos); // Imprime o status do atendimento
+        printf("Operacao realizada para o(a) cliente %s. Processos restantes: %d (Tempo desse processo: %d minutos)\n", clienteAtual->nome, clienteAtual->processos, tempoGasto); // Imprime o status do atendimento
     }
     if (clienteAtual->processos == 0) { // Se o cliente não tiver mais processos, ele sai da fila
-        printf("Cliente %s finalizou todos os processos e saiu da fila.\n", clienteAtual->nome); // Imprime que o cliente saiu da fila
+        printf("Cliente %s finalizou todos os processos e saiu da fila. (Tempo total: %d minutos)\n", clienteAtual->nome, clienteAtual->tempo); // Imprime que o cliente saiu da fila
         sairFila(fila, hist); // Remove o cliente da fila e adiciona ao historico
     }
 }
@@ -88,4 +90,14 @@ int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *hi
     // Se chegou aqui, ambas estão vazias
     printf("Atendimento concluido: Todas as filas foram esvaziadas antes do termino das operacoes solicitadas.\n");
     return 0; // Não houve atividade, retorna 0
+}
+
+// Função que calcula o tempo de atendimento baseado no número total de processos
+int calcularTempo() {
+    int tempoBase = 5; // Tempo base por processo em segundos
+    int tempoAleatorio = rand() % 5 + 1; // Tempo aleatório entre 1 e 5 segundos
+
+    int tempoProcesso =  tempoBase + tempoAleatorio;
+
+    return tempoProcesso;
 }
