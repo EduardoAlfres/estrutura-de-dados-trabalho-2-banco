@@ -46,7 +46,7 @@ void RealziarOperacao(fila *fila, historico *hist) {; // Realiza o atendimento d
         printf("Operacao realizada para o(a) cliente %s. Processos restantes: %d\n", clienteAtual->nome, clienteAtual->processos); // Imprime o status do atendimento
     }
     if(clienteAtual->processos == 0){ // Se o cliente não tiver mais processos, ele sai da fila
-        sairFila(fila, hist); // Remove o cliente da fila e adiciona ao historico
         printf("Cliente %s finalizou todos os processos e saiu da fila.\n", clienteAtual->nome); // Imprime que o cliente saiu da fila
+        sairFila(fila, hist); // Remove o cliente da fila e adiciona ao historico
     }
 }

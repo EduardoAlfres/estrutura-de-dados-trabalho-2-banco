@@ -42,31 +42,41 @@ int push(historico *pilha, hisNode *hist) {
 
 // Função que remove o nó do topo da pilha de historico
 int pop(historico *pilha) {
-    if(pilhaEstaVazia(pilha)) return 0;
-    hisNode *temp = pilha->topo->prox;
-    free(pilha->topo);
-    pilha->topo = temp;
-    pilha->tamanho--;
+    if(pilhaEstaVazia(pilha)) return 0; // Verifica se a pilha está vazia e retorna 0 se estiver
+
+    clientes *clienteRemovido = pilha->topo->cliente; // Armazena o cliente que será removido
+    hisNode *noASerRemovido = pilha->topo; // Armazena o nó que será removido
+    pilha->topo = pilha->topo->prox; // Atualiza o topo da pilha para o próximo nó 
+
+    free(clienteRemovido); // Libera a memória do cliente removido
+    free(noASerRemovido); // Libera a memória do nó removido
+
+    pilha->tamanho--; // Decrementa o tamanho da pilha
     return 1; // Retorna 1 para indicar sucesso na remoção
 }
 
 // Função que imprime o historico de atendimento
-void imprimirHistorico(historico *pilha) {
+int imprimirHistorico(historico *pilha) {
     hisNode *temp = pilha->topo; // Ponteiro temporário para percorrer a pilha
 
     if(pilhaEstaVazia(pilha)){
         printf("Historico vazio!\n");
-        return;
+        return 0;
     }
 
     printf("\n------------Relatorio--------------\n");
-    while(temp != NULL) {
+    while(temp != NULL) { // Percorre a pilha até o final
         printf("----------------------------\n");
-        printf("Nome: %s\n", temp->cliente->nome);
-        printf("Numero: %d\n", temp->cliente->num);
-        printf("Processos: %d\n", temp->cliente->processos);
-        printf("Tempo: %ds\n", temp->cliente->tempo);
+        if(temp->cliente == NULL) { // Verifica se o cliente é NULL
+            printf("Erro: Cliente nao encontrado neste registro de historico.\n");
+        } else {
+            printf("Nome: %s\n", temp->cliente->nome);
+            printf("Numero: %d\n", temp->cliente->num);
+            printf("Processos: %d\n", temp->cliente->processos);
+            printf("Tempo: %ds\n", temp->cliente->tempo);
+        }
         printf("----------------------------\n");
         temp = temp->prox;
     }
+    return 1;
 }

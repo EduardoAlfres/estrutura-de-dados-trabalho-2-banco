@@ -22,6 +22,24 @@ int main(){
     int num;
     int processos;
 
+    // ==============================================
+    //       INSERCAO DE CLIENTES DE TESTE
+    // ==============================================
+    printf("\n--- Clientes de Teste Inseridos ---\n");
+    
+    // Cliente 1: Rápido (1 processo)
+    clientes *cliA = criarElemento("Alice", 101, 1);
+    escolherFila(filaRapida, filaNormal, cliA);
+    printf("Cliente %s cadastrado na fila Rapida.\n", cliA->nome);
+    
+    // Cliente 2: Normal (5 processos)
+    clientes *cliB = criarElemento("Bob", 102, 5);
+    escolherFila(filaRapida, filaNormal, cliB);
+    printf("Cliente %s cadastrado na fila Normal.\n", cliB->nome);
+    
+    printf("-----------------------------------\n");
+    // ==============================================
+
     while(veri){
         printf("\n------------Controlador de atendimento------------\n");
         printf("Digite o numero correspondente para escolher uma operacao:\n");
@@ -103,33 +121,77 @@ int main(){
                 break;
 
             case 6: //Finalizar dia
-                while(veri){
-                    printf("Deseja exibir o relatorio do dia? (s/n): \n");
+                while(1) {
+                    int impresso = 0;
+                    printf("Deseja exibir o relatorio do dia? (s/n):\n");
                     scanf("%c", &escolhaSN);
                     while ((c = getchar()) != '\n' && c != EOF) {}
-                    if(escolhaSN == 's'){
-                        printf("Qual relatario? (1 = rapida, 2 = normal)");
+
+                    if(escolhaSN == 's' || escolhaSN == 'S') {
+                        printf("Qual relatario? (1 = rapida, 2 = normal)\n");
                         scanf("%d", &escolhaFim);
                         while ((c = getchar()) != '\n' && c != EOF) {}
+
                         if(escolhaFim == 1){
-                            imprimirHistorico(histRapida);
-                            veri = 0;
+                            if(imprimirHistorico(histRapida)) {
+                                impresso = 1;
+                            }
                         }else if(escolhaFim == 2){
-                            imprimirHistorico(histNormal);
-                            veri = 0;
+                            if(imprimirHistorico(histNormal)) {
+                                impresso = 1;
+                            }
                         }else{
                             printf("Valor invalido, digite novamente!\n");
+                            continue; // Volta para o início do loop para nova entrada
                         }
-                    }else if(escolhaSN == 'n' ){
-                        veri = 0;
+                        if (impresso) {
+                            printf("\nRelatorio exibido. Deseja encerrar o sistema? (s/n):\n");
+                            scanf(" %c", &escolhaSN);
+                            while ((c = getchar()) != '\n' && c != EOF) {}
+
+                            if(escolhaSN == 's' || escolhaSN == 'S'){
+                                veri = 0; // Se confirmar, encerra o loop principal
+                                break;
+                            }
+                            if (escolhaSN == 'n' || escolhaSN == 'N'){
+                                break; // Sai do while(1) interno e volta ao menu principal
+                            }else{
+                                printf("Valor invalido, digite novamente!\n");
+                                continue; // Volta para o início do loop para nova entrada
+                            }
+                        }
+                    }else if(escolhaSN == 'n' || escolhaSN == 'N') {
+                        printf("Deseja encerrar o sistema? (s/n):\n");
+                        scanf(" %c", &escolhaSN);
+                        while ((c = getchar()) != '\n' && c != EOF) {}
+                        
+                        if(escolhaSN == 's' || escolhaSN == 'S') {
+                            // Deve encerrar o sistema
+                            veri = 0; // Se confirmar, encerra o loop principal
+                            break; // Sai do while(1) interno
+                             
+                        }
+                        if (escolhaSN == 'n' || escolhaSN == 'N') {
+                            // Deve voltar ao menu principal
+                            break; // Sai do while(1) interno e volta ao menu principal
+                        }
                     }else{
                         printf("Valor invalido, digite novamente!\n");
+                        continue; // Volta para o início do loop para nova entrada
                     }
                 }
+                break;
             default:
                 printf("Valor Invalido digite novamente!\n");
+                continue;
         }
 
+    }
+    while(!pilhaEstaVazia(histRapida)){
+        pop(histRapida);
+    }
+    while(!pilhaEstaVazia(histNormal)){
+        pop(histNormal);
     }
     deletarFila(filaNormal);
     deletarFila(filaRapida);

@@ -4,7 +4,7 @@
 
 // Funções de fila
 // Função que cria uma nova fila com o tipo fornecido
-fila *criarFila(int tipo){
+fila *criarFila(int tipo) {
     fila *filaL = (fila*) malloc(sizeof(fila));
     filaL->tipo = tipo;
     filaL->tamanho = 0;
@@ -14,20 +14,20 @@ fila *criarFila(int tipo){
 }
 
 // Função que verifica se a fila está vazia
-int estaVazia(fila *f){
+int estaVazia(fila *f) {
     if(f->tamanho == 0) return 1; // Retorna 1 se a fila estiver vazia
     else return 0; // Retorna 0 se a fila não estiver vazia
 }
 
 // Função que cria um novo lugar na fila para o cliente fornecido
-lugar *criarLugar(clientes *cliente){
+lugar *criarLugar(clientes *cliente) {
     lugar *li = (lugar*) malloc(sizeof(lugar));
     li->cliente = cliente;
     return li; // Retorna o ponteiro para o novo lugar criado
 }
 
 // Função que adiciona um cliente na fila
-void enfileirar(fila *fila, lugar *cliente){
+void enfileirar(fila *fila, lugar *cliente) {
     if(estaVazia(fila)) {
         fila->comeco = cliente;
         fila->fim = cliente;
@@ -43,8 +43,8 @@ void enfileirar(fila *fila, lugar *cliente){
 }
 
 // Função que remove o cliente do inicio da fila
-clientes *desenfilerirar(fila *fila){
-    if(estaVazia(fila)) return 0; // Verifica se a fila está vazia
+clientes *desenfilerirar(fila *fila) {
+    if(estaVazia(fila)) return NULL; // Verifica se a fila está vazia e retorna NULL se estiver
     clientes *clienteRemovido = fila->comeco->cliente; // Armazena o cliente que será removido
     lugar *lugarRemovido = fila->comeco; // Armazena o lugar que será removido
     fila->comeco = fila->comeco->pro; // Atualiza o início da fila para o próximo lugar
@@ -60,12 +60,12 @@ clientes *desenfilerirar(fila *fila){
 }
 
 // Função que imprime os clientes na fila
-void imprimirFila(fila *fila){
-    int i;
+void imprimirFila(fila *fila) {
     lugar *temp = fila->comeco;
     printf("A fila atualmente tem: \n");
     printf("%d elementos sendo eles:\n", fila->tamanho);
-    for(i = 1; i <= fila->tamanho; i++){
+
+    while(temp != NULL) {
         printf("----------------------------\n");
         printf("Nome: %s\n", temp->cliente->nome);
         printf("Numero: %d\n", temp->cliente->num);
@@ -76,11 +76,11 @@ void imprimirFila(fila *fila){
 }
 
 // Função que deleta a fila da memória
-int deletarFila(fila *fila){
-    if(!estaVazia){
-        int i;
+int deletarFila(fila *fila) {
+    if(!estaVazia(fila)){ // Verifica se a fila não está vazia
         for(fila->tamanho; fila->tamanho != 0; fila->tamanho--){
-            desenfilerirar(fila);
+            clientes *clienteRemovido = desenfilerirar(fila);
+            free(clienteRemovido);
         }
         free(fila);
         return 1;

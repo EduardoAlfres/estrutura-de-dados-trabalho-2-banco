@@ -24,6 +24,6 @@ hisNode *criarNode(clientes *cliente, int tipo);
 int push(historico *pilha, hisNode *hist);
 int pop(historico *pilha);
 
-void imprimirHistorico(historico *pilha);
+int imprimirHistorico(historico *pilha);
 
 #endif
