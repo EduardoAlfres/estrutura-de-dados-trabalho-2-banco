@@ -55,36 +55,6 @@ int pop(historico *pilha) {
     return 1; // Retorna 1 para indicar sucesso na remoção
 }
 
-// Função que imprime o historico de atendimento
-int imprimirHistorico(historico *pilha) {
-    hisNode *temp = pilha->topo; // Ponteiro temporário para percorrer a pilha
-
-    if(pilhaEstaVazia(pilha)){
-        printf("Historico vazio!\n");
-        return 0;
-    }
-
-    printf("\n------------Relatorio--------------\n");
-    printf("Tipo de caixa: %s\n", (temp->tipoCaixa == 1) ? "Rapida" : "Normal");
-    printf("Total de pessoas atendidas: %d\n", pilha->tamanho);
-    printf("Tempo medio de atendimento: %.2f minutos\n", calcularTempoMedio(pilha));
-
-    while(temp != NULL) { // Percorre a pilha até o final
-        printf("----------------------------\n");
-        if(temp->cliente == NULL) { // Verifica se o cliente é NULL
-            printf("Erro: Cliente nao encontrado neste registro de historico.\n");
-        } else {
-            printf("Nome: %s\n", temp->cliente->nome);
-            printf("Numero: %d\n", temp->cliente->num);
-            printf("Total de processos: %d\n", temp->cliente->totalProcessos);
-            printf("Tempo: %d minutos\n", temp->cliente->tempo);
-        }
-        printf("----------------------------\n");
-        temp = temp->prox;
-    }
-    return 1;
-}
-
 // Função que calcula o tempo médio de atendimento
 float calcularTempoMedio(historico *pilha) {
     if (pilhaEstaVazia(pilha)) {
@@ -106,4 +76,79 @@ float calcularTempoMedio(historico *pilha) {
     }
 
     return (float)somaTempos / pilha->tamanho; // Retorna o tempo médio
+}
+
+// Função que imprime o historico de atendimento
+int imprimirHistorico(historico *pilha) {
+    hisNode *temp = pilha->topo; // Ponteiro temporário para percorrer a pilha
+
+    if(pilhaEstaVazia(pilha)){
+        printf("Historico vazio!\n");
+        return 0;
+    }
+
+    printf("\n============Relatorio============\n");
+    printf("Tipo de caixa: %s\n", (temp->tipoCaixa == 1) ? "Rapida" : "Normal");
+    printf("Total de pessoas atendidas: %d\n", pilha->tamanho);
+    printf("Tempo medio de atendimento: %.2f minutos\n", calcularTempoMedio(pilha));
+
+    while(temp != NULL) { // Percorre a pilha até o final
+        printf("----------------------------\n");
+        if(temp->cliente == NULL) { // Verifica se o cliente é NULL
+            printf("Erro: Cliente nao encontrado neste registro de historico.\n");
+        } else {
+            printf("Nome: %s\n", temp->cliente->nome);
+            printf("Numero: %d\n", temp->cliente->num);
+            printf("Total de processos: %d\n", temp->cliente->totalProcessos);
+            printf("Tempo: %d minutos\n", temp->cliente->tempo);
+        }
+        printf("----------------------------\n");
+        temp = temp->prox;
+    }
+    return 1;
+}
+
+// Função que imprime o historico geral de atendimento
+int imprimirHistoricoGeral(historico *rapido, historico *normal, historico *geral) {
+    if (pilhaEstaVazia(geral)) { // Verifica se a pilha geral está vazia
+        printf("Historico geral vazio!\n");
+        return 0;
+    }
+
+    int totalAtendidos = rapido->tamanho + normal->tamanho; // Total de pessoas atendidas
+    float tempoMedioRapido = calcularTempoMedio(rapido); // Tempo médio do caixa rápido
+    float tempoMedioNormal = calcularTempoMedio(normal); // Tempo médio do caixa normal
+
+    if (totalAtendidos == 0) { // Evita divisão por zero
+        printf("Nenhum atendimento realizado.\n");
+        return 0;
+    }
+    float tempoMedioGeral = (tempoMedioRapido * rapido->tamanho + tempoMedioNormal * normal->tamanho) / totalAtendidos; // Tempo médio geral ponderado
+
+    printf("\n============Relatorio Geral de Atendimento============\n");
+    printf("Total de pessoas atendidas: %d\n", totalAtendidos);
+    printf("--------------------------------------------------------\n");
+    printf("Estatisticas por tipo de caixa:\n");
+    printf("->Caixa rapido: %d clientes atendidos | Tempo medio de atendimento: %.2f minutos\n", rapido->tamanho, tempoMedioRapido);
+    printf("->Caixa normal: %d clientes atendidos | Tempo medio de atendimento: %.2f minutos\n", normal->tamanho, tempoMedioNormal);
+    printf("--------------------------------------------------------\n");
+    printf("Tempo medio geral de atendimento: %.2f minutos\n", tempoMedioGeral);
+    printf("========================================================\n");
+
+    hisNode *atual = geral->topo; // Ponteiro para percorrer a pilha geral
+    while (atual != NULL) { // Percorre a pilha geral
+        printf("--------Registro Completo--------\n");
+        if(atual->cliente == NULL) { // Verifica se o cliente é NULL
+            printf("Erro: Cliente nao encontrado neste registro de historico.\n");
+        } else {
+            printf("Nome: %s\n", atual->cliente->nome);
+            printf("Numero: %d\n", atual->cliente->num);
+            printf("Total de processos: %d\n", atual->cliente->totalProcessos);
+            printf("Tempo: %d minutos\n", atual->cliente->tempo);
+            printf("Tipo de caixa: %s\n", (atual->tipoCaixa == 1) ? "Rapida" : "Normal");
+        }
+        printf("---------------------------------\n");
+        atual = atual->prox; // Avança para o próximo nó
+    }
+    return 1; // Retorna 1 para indicar sucesso na impressão
 }

@@ -14,6 +14,7 @@ int main(){
     fila *filaNormal = criarFila(2);
     historico *histRapida = criarPilha();
     historico *histNormal = criarPilha();
+    historico *histGeral = criarPilha();
     int escolha;
     char escolhaSN;
     int escolhaFim;
@@ -93,8 +94,7 @@ int main(){
 
                 printf("Iniciando atendimento alternado... Realizando %d operacoes...\n", opNum);
                 while(opNum != 0) {
-
-                    if(cicloAtendimento(filaRapida, filaNormal, histRapida, histNormal) == 0) {
+                    if(cicloAtendimento(filaRapida, filaNormal, histRapida, histNormal, histGeral) == 0) {
                         break; // Sai do loop se não houver mais atendimentos possíveis
                     }
                     opNum--;
@@ -117,7 +117,7 @@ int main(){
                     while ((c = getchar()) != '\n' && c != EOF) {}
 
                     if(escolhaSN == 's' || escolhaSN == 'S') {
-                        printf("Qual relatario? (1 = rapida, 2 = normal)\n");
+                        printf("Qual relatario? (1 = Rapida, 2 = Normal, 3 = Geral)\n");
                         scanf("%d", &escolhaFim);
                         while ((c = getchar()) != '\n' && c != EOF) {}
 
@@ -127,6 +127,10 @@ int main(){
                             }
                         }else if(escolhaFim == 2){
                             if(imprimirHistorico(histNormal)) {
+                                impresso = 1;
+                            }
+                        }else if(escolhaFim == 3){
+                            if(imprimirHistoricoGeral(histRapida, histNormal, histGeral)) {
                                 impresso = 1;
                             }
                         }else{

@@ -35,7 +35,7 @@ int sairFila(fila *fila, historico *hist) { // Deve adicionar o cliente ao histo
 }
 
 // Função que realiza a operação de atendimento ao cliente
-void RealziarOperacao(fila *fila, historico *hist) {; // Realiza o atendimento do cliente no inicio da fila
+void RealziarOperacao(fila *fila, historico *histEspecifca, historico *histGeral) {; // Realiza o atendimento do cliente no inicio da fila
     if (estaVazia(fila)) {
         return; // Se a fila estiver vazia, não há nada a fazer
     }
@@ -49,24 +49,28 @@ void RealziarOperacao(fila *fila, historico *hist) {; // Realiza o atendimento d
     }
     if (clienteAtual->processos == 0) { // Se o cliente não tiver mais processos, ele sai da fila
         printf("Cliente %s finalizou todos os processos e saiu da fila. (Tempo total: %d minutos)\n", clienteAtual->nome, clienteAtual->tempo); // Imprime que o cliente saiu da fila
-        sairFila(fila, hist); // Remove o cliente da fila e adiciona ao historico
+        clientes *clienteCopia = criarElemento(clienteAtual->nome, clienteAtual->num, clienteAtual->totalProcessos); // Cria uma cópia do cliente para o historico geral
+        clienteCopia->tempo = clienteAtual->tempo; // Copia o tempo total do cliente
+        sairFila(fila, histEspecifca); // Remove o cliente da fila e adiciona ao historico
+        hisNode *registroGeral = criarNode(clienteCopia, fila->tipo); // Cria um novo nó de historico com a cópia do cliente e o tipo da fila
+        push(histGeral, registroGeral); // Adiciona o nó de historico na pilha de historico geral
     }
 }
 
 // Função que executa um ciclo de atendimento em ambas as filas
 static int ultimaFilaAtendida = 1; // Variável estática para rastrear a última fila atendida (0 = Último foi o Rápido; 1 = Último foi o Normal. Começa com 0 (prioriza o Rápido).)
-int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *histN) {
+int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *histN, historico *histGeral) {
     // Prioridade: Tentar atender na fila rápida
     if (ultimaFilaAtendida == 1 &&!estaVazia(rapida)) {
         // Se a fila rapida nao estiver vazia, realiza 1 operacao nela
-        RealziarOperacao(rapida, histR);
+        RealziarOperacao(rapida, histR, histGeral);
         ultimaFilaAtendida = 0;
         return 1;
     }
     // Se a rápida estiver vazia, tentar atender na fila normal
     if (ultimaFilaAtendida == 0 && !estaVazia(normal)) {
         // Se a fila normal nao estiver vazia, realiza 1 operacao nela
-        RealziarOperacao(normal, histN);
+        RealziarOperacao(normal, histN, histGeral);
         ultimaFilaAtendida = 1;
         return 1;
     }
@@ -75,14 +79,14 @@ int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *hi
     // Se a normal estiver vazia, tentar atender na fila rapida
     if (!estaVazia(rapida)) {
         // Se a fila rapida nao estiver vazia, realiza 1 operacao nela
-        RealziarOperacao(rapida, histR);
+        RealziarOperacao(rapida, histR, histGeral);
         ultimaFilaAtendida = 0;
         return 1;
     }
     // Se a rapida estiver vazia, tentar atender na fila normal
     if (!estaVazia(normal)) {
         // Se a fila normal nao estiver vazia, realiza 1 operacao nela
-        RealziarOperacao(normal, histN);
+        RealziarOperacao(normal, histN, histGeral);
         ultimaFilaAtendida = 1;
         return 1;
     }
