@@ -63,14 +63,14 @@ int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *hi
     // Prioridade: Tentar atender na fila rápida
     if (ultimaFilaAtendida == 1 &&!estaVazia(rapida)) {
         // Se a fila rapida nao estiver vazia, realiza 1 operacao nela
-        RealziarOperacao(rapida, histR, histGeral);
+        RealizarOperacao(rapida, histR, histGeral);
         ultimaFilaAtendida = 0;
         return 1;
     }
     // Se a rápida estiver vazia, tentar atender na fila normal
     if (ultimaFilaAtendida == 0 && !estaVazia(normal)) {
         // Se a fila normal nao estiver vazia, realiza 1 operacao nela
-        RealziarOperacao(normal, histN, histGeral);
+        RealizarOperacao(normal, histN, histGeral);
         ultimaFilaAtendida = 1;
         return 1;
     }
@@ -79,14 +79,14 @@ int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *hi
     // Se a normal estiver vazia, tentar atender na fila rapida
     if (!estaVazia(rapida)) {
         // Se a fila rapida nao estiver vazia, realiza 1 operacao nela
-        RealziarOperacao(rapida, histR, histGeral);
+        RealizarOperacao(rapida, histR, histGeral);
         ultimaFilaAtendida = 0;
         return 1;
     }
     // Se a rapida estiver vazia, tentar atender na fila normal
     if (!estaVazia(normal)) {
         // Se a fila normal nao estiver vazia, realiza 1 operacao nela
-        RealziarOperacao(normal, histN, histGeral);
+        RealizarOperacao(normal, histN, histGeral);
         ultimaFilaAtendida = 1;
         return 1;
     }
