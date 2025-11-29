@@ -10,7 +10,7 @@ Desenvolver, em grupos, uma aplicação em **linguagem C** que utilize filas lin
 Uma agência bancária deseja informatizar o sistema de controle de **duas filas simultâneas de atendimento**:
 
 - 🟦 **Fila Comum** — para qualquer cliente  
-- 🟩 **Fila Rápida** — para clientes com **menos de 2 procedimentos**
+- 🟩 **Fila Rápida** — para clientes com **2 ou menos procedimentos**
 
 Os atendimentos acontecem **em paralelo**, alternando entre os caixas.  
 A cada atendimento, o sistema registra:
