@@ -35,7 +35,7 @@ int sairFila(fila *fila, historico *hist) { // Deve adicionar o cliente ao histo
 }
 
 // Função que realiza a operação de atendimento ao cliente
-void RealziarOperacao(fila *fila, historico *histEspecifca, historico *histGeral) {; // Realiza o atendimento do cliente no inicio da fila
+void RealizarOperacao(fila *fila, historico *histEspecifca, historico *histGeral) {; // Realiza o atendimento do cliente no inicio da fila
     if (estaVazia(fila)) {
         return; // Se a fila estiver vazia, não há nada a fazer
     }
@@ -51,8 +51,8 @@ void RealziarOperacao(fila *fila, historico *histEspecifca, historico *histGeral
         printf("Cliente %s finalizou todos os processos e saiu da fila. (Tempo total: %d minutos)\n", clienteAtual->nome, clienteAtual->tempo); // Imprime que o cliente saiu da fila
         clientes *clienteCopia = criarElemento(clienteAtual->nome, clienteAtual->num, clienteAtual->totalProcessos); // Cria uma cópia do cliente para o historico geral
         clienteCopia->tempo = clienteAtual->tempo; // Copia o tempo total do cliente
-        sairFila(fila, histEspecifca); // Remove o cliente da fila e adiciona ao historico
-        hisNode *registroGeral = criarNode(clienteCopia, fila->tipo); // Cria um novo nó de historico com a cópia do cliente e o tipo da fila
+        sairFila(fila, histEspecifca); // Remove o cliente da fila e adiciona ao historico especifico
+        hisNode *registroGeral = criarNode(clienteCopia, fila->tipo); // Cria um novo nó de historico geral com a cópia do cliente e o tipo da fila
         push(histGeral, registroGeral); // Adiciona o nó de historico na pilha de historico geral
     }
 }
@@ -98,8 +98,8 @@ int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *hi
 
 // Função que calcula o tempo de atendimento baseado no número total de processos
 int calcularTempo() {
-    int tempoBase = 5; // Tempo base por processo em segundos
-    int tempoAleatorio = rand() % 5 + 1; // Tempo aleatório entre 1 e 5 segundos
+    int tempoBase = 5; // Tempo base por processo em minutos
+    int tempoAleatorio = rand() % 5 + 1; // Tempo aleatório entre 1 e 5 minutos
 
     int tempoProcesso =  tempoBase + tempoAleatorio;
 

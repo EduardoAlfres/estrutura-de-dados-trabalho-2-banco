@@ -10,7 +10,7 @@
 // Prototipos das funcoes de atendimento e escolha de fila
 fila *escolherFila(fila *fila1, fila *fila2, clientes *cliente);
 int sairFila(fila *fila, historico *hist);
-void RealziarOperacao(fila *fila, historico *histEspecifica, historico *histGeral);
+void RealizarOperacao(fila *fila, historico *histEspecifica, historico *histGeral);
 int cicloAtendimento(fila *rapida, fila *normal, historico *histR, historico *histN, historico *histGeral);
 int calcularTempo();
 

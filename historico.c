@@ -55,7 +55,7 @@ int pop(historico *pilha) {
     return 1; // Retorna 1 para indicar sucesso na remoção
 }
 
-// Função que calcula o tempo médio de atendimento
+// Função que calcula o tempo médio de atendimento de uma pilha de historico
 float calcularTempoMedio(historico *pilha) {
     if (pilhaEstaVazia(pilha)) {
         return 0.0f; // Retorna 0 se a pilha estiver vazia, o f indica que é float
